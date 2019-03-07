@@ -1,1 +1,1 @@
-	gcc rotateImg.c -lmingw32 -lSDLmain -lSDL -lSDL_image -o rotateImg
+gcc rotateImg.c -lSDL2main -lSDL2 -lSDL2_image -o rotateImg
