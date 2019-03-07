@@ -1,0 +1,4 @@
+
+	as 3a.s -g -o 3a.o
+	ld 3a.o -o 3a
+#

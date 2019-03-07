@@ -1,0 +1,2 @@
+	as 1b.s -g -o 1b.o
+	ld 1b.o -o 1b
