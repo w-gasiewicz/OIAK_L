@@ -2,9 +2,11 @@ Flat profile:
 
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
- time   seconds   seconds    calls  ms/call  ms/call  name    
-100.00      0.01     0.01        1    10.00    10.00  sum
-  0.00      0.01     0.00        1     0.00     0.00  SumASM
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 39.58      0.19     0.19      255   745.10   745.10  sum
+ 31.25      0.34     0.15                             rdtsc
+ 29.17      0.48     0.14                             start_loop
+  0.00      0.48     0.00      255     0.00     0.00  SumASM
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -42,19 +44,25 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 4 byte(s) for 100.00% of 0.01 seconds
+granularity: each sample hit covers 4 byte(s) for 2.08% of 0.48 seconds
 
 index % time    self  children    called     name
-                0.01    0.00       1/1           main [2]
-[1]    100.0    0.01    0.00       1         sum [1]
+                0.19    0.00     255/255         main [2]
+[1]     39.6    0.19    0.00     255         sum [1]
 -----------------------------------------------
                                                  <spontaneous>
-[2]    100.0    0.00    0.01                 main [2]
-                0.01    0.00       1/1           sum [1]
-                0.00    0.00       1/1           SumASM [3]
+[2]     39.6    0.00    0.19                 main [2]
+                0.19    0.00     255/255         sum [1]
+                0.00    0.00     255/255         SumASM [5]
 -----------------------------------------------
-                0.00    0.00       1/1           main [2]
-[3]      0.0    0.00    0.00       1         SumASM [3]
+                                                 <spontaneous>
+[3]     31.2    0.15    0.00                 rdtsc [3]
+-----------------------------------------------
+                                                 <spontaneous>
+[4]     29.2    0.14    0.00                 start_loop [4]
+-----------------------------------------------
+                0.00    0.00     255/255         main [2]
+[5]      0.0    0.00    0.00     255         SumASM [5]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -147,4 +155,5 @@ notice and this notice are preserved.
 
 Index by function name
 
-   [3] SumASM                  [1] sum
+   [5] SumASM                  [4] start_loop
+   [3] rdtsc                   [1] sum

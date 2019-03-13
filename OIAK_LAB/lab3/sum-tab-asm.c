@@ -15,13 +15,6 @@ int sum(int tab[], int qua){
 	}
 return sum;
 }
-int FillTab(int qua){
-int tab[qua];
-for(int i=0;i<qua;i++) {
-		tab[i] = (int) (10.0*rand()/(RAND_MAX+1.0));
-	}
-return tab[qua];
-}
 void SumASM(int tab[], int qua){
 asm_mod_array(tab,qua);
 }
@@ -38,14 +31,12 @@ int tab[qua];
 	for(int i=0;i<qua;i++) {
 		tab[i] = (int) (10.0*rand()/(RAND_MAX+1.0));
 	} 
-//tab[qua]=FillTab(qua);
 
-
-t2 = rdtsc();
+ t2 = rdtsc();
  t2 = t2 -t1; 
  printf("Ilość cykli na wypełnienie tablicy: %llu\n",t2);
 
-t1 = rdtsc();  
+ t1 = rdtsc();  
  suma=sum(tab,qua);
  t2 = rdtsc();
  t2 = t2 -t1; 
@@ -53,7 +44,6 @@ t1 = rdtsc();
 printf("Wynik= %d Ilość cykli na zsumowanie tablicy w c: %llu\n",suma,t2);
 
  t1 = rdtsc();  
- //asm_mod_array(tab,qua);
 SumASM(tab,qua);
  t2 = rdtsc();
  t2 = t2 -t1; 
