@@ -1,7 +1,7 @@
 .section .text
-.type bright, @function # rozjasnianie obrazu
-.global bright
-bright:
+.type dark, @function # rozjasnianie obrazu
+.global dark
+dark:
 push %rbp
 mov %rsp, %rbp
 
@@ -10,14 +10,12 @@ mov %rdx, %rcx #ilosc iteracji
 mov %rsi, %rdx #wskaznik na wyjsciowa tablice
 xor %rdi, %rdi
 
-#movq $0x7f7f7f7f7f7f7f7f, %r8 #maska do przyciemniania
-movq $0x2f2f2f2f2f2f2f2f, %r8 #maska do rozjasnienia
+movq $0x7f7f7f7f7f7f7f7f, %r8 #maska do przyciemniania
 movq %r8, %mm0 
 
 petla: 
 movq (%rax,%rdi,8), %mm1 # zaadowanie kolejnych 8 bajtów do rejestru MMX
-paddusb %mm0, %mm1 # dodanie z nasyceniem (rozjanienie)
-#psubusb %mm0, %mm1 #odejmowanie z nasyceniem (przyciemnienie)
+psubusb %mm0, %mm1 #odejmowanie z nasyceniem (przyciemnienie)
 movq %mm1, (%rdx,%rdi,8) # zwrot wyniku
 inc %rdi # przesuwamy indeks pikseli bitmapy 
 dec %rcx # zmiejszamy liczbê iteracji

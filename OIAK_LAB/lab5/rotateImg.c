@@ -4,15 +4,16 @@
 #include "SDL2/SDL.h"
 #include <SDL2/SDL_image.h>
 
-//void Filter(unsigned char * in, unsigned char * out, int width, int height);
 void bright(unsigned char * in, unsigned char * out, int iterations);
+void dark(unsigned char *in, unsigned char *out, int iterations);
 
 int Menu(){
 int choice;
 printf("MENU:\n");
 printf("1 - obrót obrazu. \n");
-printf("2 - edycja kolorów obrazu. \n");
-printf("3 - koniec. \n");
+printf("2 - rozjaśnienie obrazu. \n");
+printf("3 - przyciemnienie obrazu. \n");
+printf("0 - koniec. \n");
 printf("Twój wybór: ");
 scanf("%d",&choice);
 return choice;
@@ -43,7 +44,7 @@ printf("Bajty na pixel: %i \n",image->format->BytesPerPixel);
 printf("Szerokość: %d Wysokość: %d \n",image->w, image->h);
 
 option=Menu();
-while(option!=3){ 
+while(option!=0){ 
 	quit=false;
 	
    if(option==1)
@@ -78,14 +79,16 @@ while(SDL_PollEvent(&event))
     }
    }
    else if(option==2)
-   {//negatyw asm
+   {//rozjasnienie obrazu
 SDL_LockSurface(image);
 
-bright(image->pixels,tempBuf,iterations);	
+bright(image->pixels,tempBuf,iterations/8);
 
-memcpy(image->pixels,tempBuf,bytes);
+memcpy(image->pixels,tempBuf,iterations);
+texture = SDL_CreateTextureFromSurface(renderer, image);
 
 SDL_UnlockSurface(image);
+
 printf("Aby wrócić do MENU kliknij na wyświetlany obraz i przytrzymaj klawisz q. \n");
 //petla utrzymuje obraz otwarty w oknie widocznym dla uzytkownika
 
@@ -99,7 +102,42 @@ while(SDL_PollEvent(&event))
         {
 	 case SDL_KEYDOWN:
  	 switch(event.key.keysym.sym){
-            case SDL_QUIT:
+            case SDLK_q:
+                quit = true;
+                break;
+	 }
+		break;
+        } 
+	SDL_RenderCopy(renderer, texture, NULL, NULL);
+        SDL_RenderPresent(renderer);
+    }
+
+   }
+else if(option==3)
+   {//przyciemnienie obrazu
+SDL_LockSurface(image);
+
+dark(image->pixels,tempBuf,iterations/8);
+
+memcpy(image->pixels,tempBuf,iterations);
+texture = SDL_CreateTextureFromSurface(renderer, image);
+
+SDL_UnlockSurface(image);
+
+printf("Aby wrócić do MENU kliknij na wyświetlany obraz i przytrzymaj klawisz q. \n");
+//petla utrzymuje obraz otwarty w oknie widocznym dla uzytkownika
+
+while (!quit)
+while(SDL_PollEvent(&event))
+    {	
+	SDL_RenderClear(renderer);
+        SDL_WaitEvent(&event);
+ 	
+        switch (event.type)
+        {
+	 case SDL_KEYDOWN:
+ 	 switch(event.key.keysym.sym){
+            case SDLK_q:
                 quit = true;
                 break;
 	 }
