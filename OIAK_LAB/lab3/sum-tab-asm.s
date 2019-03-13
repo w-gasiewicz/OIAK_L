@@ -15,7 +15,6 @@ pushl %ebp                 # zabezpieczamy stary %ebp
 movl %esp, %ebp            # nowy base pointer = %esp (szczyt stosu)
 movl 8(%ebp),%eax          # pierwszy par. - wskaznik na poczatek tablicy do %eax
 movl 12(%ebp),%ecx         # rozmiar tablicy do %ecx
-movl 16(%ebp),%ebx 		#wynik sumowania
 xorl %edi, %edi            # zerujemy indeks biezacy w %edi
 movl $0, %ebx
  

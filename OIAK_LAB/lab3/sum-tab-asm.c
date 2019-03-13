@@ -33,7 +33,6 @@ srand(time(NULL));
 printf("Podaj ilość elementów tablicy do wygenerowania: ");
 scanf("%llu", &qua);
 int tab[qua];
-//printf("Ilość elementów w tablicy do testu: %llu\n",qua);
 
  t1 = rdtsc();
 	for(int i=0;i<qua;i++) {
