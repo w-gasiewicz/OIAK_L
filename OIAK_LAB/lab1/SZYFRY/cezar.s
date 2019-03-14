@@ -1,3 +1,4 @@
+#szyfr cezara
 SYSCALL32 = 0x80
 EXIT = 1
 STDIN = 0
@@ -7,16 +8,17 @@ WRITE = 4
 BUF_SIZE = 80
 
 .data
-.comm BUF, 80 #deklaracja bufora wyjscia
+.comm BUF, 80 #deklaracja bufora wejscia
+.comm BUF_OUT, 80 #bufor wyjscia
 
 .text
 tekst: .ascii "Wprowadz ciag liter: \n"
 tekst_len = .-tekst
-tekst2: .ascii "Wprowadziles: "
+tekst2: .ascii "Wiadomosc zakodowana szyfrem cezara: "
 tekst2_len = .-tekst2
 
-.global main
-main:
+.globl _start
+_start:
 #wyswietlenie zmiennej tekst na konsoli
 movl $WRITE, %eax
 movl $STDOUT, %ebx
@@ -30,6 +32,19 @@ movl $BUF, %ecx
 movl $BUF_SIZE, %edx
 int $SYSCALL32 #w eax liczba wczytanych znakow
 
+dec %eax
+xor %ecx, %ecx
+
+szyfr:
+mov BUF(,%ecx,1), %r9d
+add $1, %r9d
+mov %r9d, BUF_OUT(,%ecx,1)
+inc %r12d
+inc %ecx
+cmp %r12d, %eax
+jg szyfr
+
+#ponizej wyswietlenie tekstu2 i zaszyfrowanej wiadomosci
 out:
 movl $WRITE, %eax
 movl $STDOUT, %ebx
@@ -37,24 +52,12 @@ movl $tekst2, %ecx
 movl $tekst2_len, %edx
 int $SYSCALL32
 
-movl $WRITE, %eax #wyswietlenie zawartosci bufora
+movl $WRITE, %eax
 movl $STDOUT, %ebx
-movl $BUF, %ecx
-movl $BUF_SIZE, %edx
+movl $BUF_OUT, %ecx
+movl %r12d, %edx #wr12d dlugosc zaszyfrowanej wiadomosci
 int $SYSCALL32
 
-#dzielenie:
-movl $0, %edx
-movl $16, %eax
-movl $-8, %ecx
-imul %ecx
-
-movl $WRITE, %eax #wyswietlenie zawartosci bufora
-movl $STDOUT, %ebx
-movl $BUF, %ecx
-movl $BUF_SIZE, %edx
-int $SYSCALL32
-
-quit:
-movl $EXIT, %eax #zakonczenie programu
+exit:
+movl $EXIT, %eax
 int $SYSCALL32

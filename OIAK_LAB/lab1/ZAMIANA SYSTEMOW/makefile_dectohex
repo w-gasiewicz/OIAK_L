@@ -1,0 +1,2 @@
+	as dectohex.s -g -o dectohex.o
+	ld dectohex.o -o dectohex

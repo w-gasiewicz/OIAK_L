@@ -1,0 +1,2 @@
+as --32 wszystkienaMALE.s -g -o wszystkienaMALE.o
+ld wszystkienaMALE.o -m elf_i386 -o wszystkienaMALE

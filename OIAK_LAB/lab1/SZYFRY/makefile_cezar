@@ -1,0 +1,3 @@
+	as cezar.s -g -o cezar.o
+	ld cezar.o -o cezar
+

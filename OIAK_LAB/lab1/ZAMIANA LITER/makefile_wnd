@@ -1,0 +1,2 @@
+as --32 wszystkienaDUZE.s -g -o wszystkienaDUZE.o
+ld wszystkienaDUZE.o -m elf_i386 -o wszystkienaDUZE

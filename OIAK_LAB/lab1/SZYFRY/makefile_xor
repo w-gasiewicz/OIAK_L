@@ -1,0 +1,2 @@
+	as xor.s -g -o xor.o
+	ld xor.o -o xor

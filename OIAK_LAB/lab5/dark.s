@@ -1,3 +1,4 @@
+mask = 0x7f7f7f7f7f7f7f7f
 .section .text
 .type dark, @function # rozjasnianie obrazu
 .global dark
@@ -10,7 +11,7 @@ mov %rdx, %rcx #ilosc iteracji
 mov %rsi, %rdx #wskaznik na wyjsciowa tablice
 xor %rdi, %rdi
 
-movq $0x7f7f7f7f7f7f7f7f, %r8 #maska do przyciemniania
+movq $mask, %r8 #maska do przyciemniania
 movq %r8, %mm0 
 
 petla: 
