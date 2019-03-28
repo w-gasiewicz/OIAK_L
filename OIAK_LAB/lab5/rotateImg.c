@@ -43,15 +43,34 @@ printf("Bity na pixel: %i \n",image->format->BitsPerPixel);
 printf("Bajty na pixel: %i \n",image->format->BytesPerPixel);
 printf("Szerokość: %d Wysokość: %d \n",image->w, image->h);
 
+
+printf("Aby zamknąć podgląd obrazu i wyświetlić MENU kliknij na wyświetlany obraz i przytrzymaj klawisz q. \n");
+while (!quit)
+while(SDL_PollEvent(&event))
+    {	
+	SDL_RenderClear(renderer);
+        SDL_WaitEvent(&event);
+ 	
+        switch (event.type)
+        {
+	 case SDL_KEYDOWN:
+ 	 switch(event.key.keysym.sym){
+            case SDLK_q:
+                quit = true;
+                break;
+	 }
+		break;
+        } 
+	SDL_RenderCopy(renderer, texture, NULL, NULL);
+        SDL_RenderPresent(renderer);
+    }
+
 option=Menu();
 while(option!=0){ 
 	quit=false;
 	
    if(option==1)
    {
-SDL_RenderCopy(renderer, texture, NULL, NULL);
-	SDL_RenderPresent(renderer);
-
 	printf("podaj kąt obrotu: ");
 	scanf("%d",&degrees);
 	printf("Aby wrócić do MENU kliknij na wyświetlany obraz i przytrzymaj klawisz q. \n");
