@@ -5,7 +5,6 @@
 
 //prototypy funkcji z assemblera
  unsigned long long rdtsc() ; 
- unsigned long long asm_mod_array(int tab[],int qua);
  unsigned long long asm_mod_array64(int tab[],int qua);
 
 int sum(int tab[], int qua){
@@ -17,7 +16,7 @@ int sum(int tab[], int qua){
 return sum;
 }
 void SumASM(int tab[], int qua){
-asm_mod_array(tab,qua);
+asm_mod_array64(tab,qua);
 }
 int main() {
 int suma = 0; 
