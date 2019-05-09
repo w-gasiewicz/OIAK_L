@@ -12,7 +12,8 @@ push $scanf_format
 call scanf
 add $8, %esp
 
-push $int_x
+#push $int_x
+push $20
 push $text_string
 call printf
 add $8, %esp
